@@ -1,0 +1,51 @@
+<div ng-app="app">
+  {{ 1 + 1 }}
+  <div ng-controller="countriesCtrl" ng-init="fetchData()">
+
+
+  <h2>Add a new country!</h2>
+  	<p>Country Name: <input ng-model="countryName"></p>
+  	<br>
+  	<p>Country Population: <input ng-model="countryPopulation"></p>
+  	<button ng-click="addCountry(countryName, countryPopulation)">Submit Country!</button>
+
+  	<p ng-repeat="error in errors">{{error}}</p>
+
+  	<p><label>Find by name</label>
+  	<input ng-model="findByName" list="names"></p>
+
+  	<datalist id="names">
+  		<option ng-repeat="country in countries">{{country.Name}}</option>
+  	</datalist>
+
+  	<p><label>Find by government_type</label>
+  	<input ng-model="findByGovernmentType"></p>
+
+
+  <table width="1000">
+	<tr>
+		<th>Country #</th>
+		<th ng-click="changeOrder('Name')">Country name</th>
+		<th ng-click="changeOrder('Population')">Country population</th>
+		<th ng-click="changeOrder('Continent')">Country continenet</th>
+		<th ng-click="changeOrder('size')">Country size</th>
+		<th ng-click="changeOrder('government_type')">Country government-type</th>
+		<th ng-click="changeOrder('highest_officer')">Country highest-officer</th>
+	</tr>
+
+	<tr ng-repeat="country in countries | filter: {Name: findByName, government_type: findByGovernmentType} | orderBy: orderByAttribute:descending">
+		<td ng-click="toggleVisible(country)"></td>
+		<td ng-if="country.visible">{{country.Name}}</td>
+		<td>{{country.Population}}</td>
+		<td>{{country.Continent}}</td>
+		<td>{{country.size}}</td>
+		<td>{{country.government_type}}</td>
+		<td>{{country.highest_officer}}</td>
+		<p></p>
+	</tr>
+</table>
+
+
+
+   </div>
+</div>
